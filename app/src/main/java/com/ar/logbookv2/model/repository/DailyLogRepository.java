@@ -5,8 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.ar.logbookv2.model.dao.DailyLogDao;
-import com.ar.logbookv2.model.entity.DailyLog;
+import com.ar.logbookv2.entity.DailyLog;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DailyLogRepository {
@@ -31,9 +32,9 @@ public class DailyLogRepository {
         });
     }
 
-    public void deleteByTitle(String title){
+    public void deleteByDate(LocalDate date){
         DailyLogRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mDailyLogDao.deleteByTitle(title);
+            mDailyLogDao.deleteByDate(date);
         });
     }
 }

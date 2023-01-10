@@ -6,9 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ar.logbookv2.model.entity.DailyLog;
+import com.ar.logbookv2.entity.DailyLog;
 import com.ar.logbookv2.model.repository.DailyLogRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DailyLogViewModel extends AndroidViewModel {
@@ -31,7 +32,7 @@ public class DailyLogViewModel extends AndroidViewModel {
         mRepository.insert(dailyLog);
     }
 
-    public void deleteByTitle (String title){
-        mRepository.deleteByTitle(title);
+    public void deleteByDate(LocalDate date){
+        mRepository.deleteByDate(date);
     }
 }

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import com.ar.logbookv2.model.entity.DailyLog;
+import com.ar.logbookv2.entity.DailyLog;
 
 public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolder> {
 
@@ -23,7 +23,7 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
     @Override
     public void onBindViewHolder(@NonNull DailyLogViewHolder holder, int position) {
         DailyLog current = getItem(position);
-        holder.bind(current.getTitle());
+        holder.bind(current.getTitle(), current.getDate());
     }
 
     static class DailyLogDiff extends DiffUtil.ItemCallback<DailyLog>{
@@ -35,7 +35,7 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
 
         @Override
         public boolean areContentsTheSame(@NonNull DailyLog oldItem, @NonNull DailyLog newItem) {
-            return oldItem.getTitle().equals(newItem.getTitle());
+            return oldItem.getDate().equals(newItem.getDate());
         }
     }
 }

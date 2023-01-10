@@ -6,13 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ar.logbookv2.R;
-import com.ar.logbookv2.model.entity.DailyLog;
+import com.ar.logbookv2.entity.DailyLog;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,8 +56,19 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_DAILY_LOG_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            DailyLog dailyLog = new DailyLog(data.getStringExtra(NewDailyLogActivity.EXTRA_REPLY));
+
+            LocalDate date = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                date = (LocalDate) data.getSerializableExtra("Date");
+            }
+            String title = data.getStringExtra("Title");
+            int mood = data.getIntExtra("Mood", 0);
+            int energy = data.getIntExtra("Energy", 0);
+            String notes = data.getStringExtra("Notes");
+
+            DailyLog dailyLog = new DailyLog(date, title, mood, energy, notes);
             mDailyLogViewModel.insert(dailyLog);
+
         } else {
             Toast.makeText(
                     getApplicationContext(),

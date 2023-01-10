@@ -6,15 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.ar.logbookv2.Converters;
 import com.ar.logbookv2.model.dao.DailyLogDao;
-import com.ar.logbookv2.model.entity.DailyLog;
+import com.ar.logbookv2.entity.DailyLog;
 
+import java.time.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {DailyLog.class}, version = 1, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class DailyLogRoomDatabase extends RoomDatabase{
 
     public abstract DailyLogDao dailyLogDao();
@@ -48,10 +52,18 @@ public abstract class DailyLogRoomDatabase extends RoomDatabase{
                 DailyLogDao dailyLogDao = INSTANCE.dailyLogDao();
                 dailyLogDao.deleteAll();
 
-                DailyLog dailyLog1 = new DailyLog("DailyLog Test 1");
+                LocalDate date = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    date = LocalDate.now();
+                }
+
+                DailyLog dailyLog1 = new DailyLog(date, "DailyLog Test 1", 5, 5, "Lorem Ipsum");
                 dailyLogDao.insert(dailyLog1);
 
-                DailyLog dailyLog2 = new DailyLog("DailyLog Test 2");
+                DailyLog dailyLog2 = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    dailyLog2 = new DailyLog(LocalDate.of(2022, 05, 06), "DailyLog Test 2", 4, 2, "Lorem Ipsum");
+                }
                 dailyLogDao.insert(dailyLog2);
             });
         }
