@@ -30,7 +30,6 @@ public class NewDailyLogActivity extends AppCompatActivity {
 
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
-    private EditText mEditTitleView;
     private EditText mEditDateView;
     private EditText mEditMoodView;
     private EditText mEditEnergyView;
@@ -41,7 +40,6 @@ public class NewDailyLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_daily_log);
 
-        mEditTitleView = findViewById(R.id.title_ed);
         mEditDateView = findViewById(R.id.date_ed);
         mEditMoodView = findViewById(R.id.mood_ed);
         mEditEnergyView = findViewById(R.id.energy_ed);
@@ -51,9 +49,9 @@ public class NewDailyLogActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             if ( TextUtils.isEmpty(mEditDateView.getText())) {
+                replyIntent.putExtra("Message", "Empty");
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                String title = mEditTitleView.getText().toString();
 
                 //LocalDate
 
@@ -69,13 +67,12 @@ public class NewDailyLogActivity extends AppCompatActivity {
                     date = LocalDate.parse(local_date, formatter);
                 }
 
+
                 int mood = Integer.parseInt(mEditMoodView.getText().toString());
                 int energy = Integer.parseInt(mEditEnergyView.getText().toString());
                 String notes = mEditNotesView.getText().toString();
 
                 //Intent
-
-                replyIntent.putExtra("Title", title);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     replyIntent.putExtra("Date", date);

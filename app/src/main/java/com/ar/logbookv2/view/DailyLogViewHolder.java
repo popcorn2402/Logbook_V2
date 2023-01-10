@@ -14,19 +14,22 @@ import java.time.LocalDate;
 
 public class DailyLogViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView titleItemView;
     private final TextView dateItemView;
+    private final TextView moodItemView;
+    private final TextView energyItemView;
 
     private DailyLogViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        titleItemView = itemView.findViewById(R.id.title_tv);
         dateItemView = itemView.findViewById(R.id.date_tv);
+        moodItemView = itemView.findViewById(R.id.mood_tv);
+        energyItemView = itemView.findViewById(R.id.energy_tv);
     }
 
-    public void bind (String title, LocalDate date){
-        titleItemView.setText(title);
+    public void bind (LocalDate date, int mood, int energy){
         dateItemView.setText(date.toString());
+        moodItemView.setText(Integer.toString(mood));
+        energyItemView.setText(Integer.toString(energy));
     }
 
     static DailyLogViewHolder create(ViewGroup parent){

@@ -57,12 +57,12 @@ public abstract class DailyLogRoomDatabase extends RoomDatabase{
                     date = LocalDate.now();
                 }
 
-                DailyLog dailyLog1 = new DailyLog(date, "DailyLog Test 1", 5, 5, "Lorem Ipsum");
+                DailyLog dailyLog1 = new DailyLog(date, 5, 5, "Lorem Ipsum");
                 dailyLogDao.insert(dailyLog1);
 
                 DailyLog dailyLog2 = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    dailyLog2 = new DailyLog(LocalDate.of(2022, 05, 06), "DailyLog Test 2", 4, 2, "Lorem Ipsum");
+                    dailyLog2 = new DailyLog(LocalDate.of(2022, 05, 06), 4, 2, "Lorem Ipsum");
                 }
                 dailyLogDao.insert(dailyLog2);
             });

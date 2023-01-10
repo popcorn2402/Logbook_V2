@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,9 +14,7 @@ import com.ar.logbookv2.entity.DailyLog;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,19 +58,25 @@ public class MainActivity extends AppCompatActivity {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 date = (LocalDate) data.getSerializableExtra("Date");
             }
-            String title = data.getStringExtra("Title");
+
             int mood = data.getIntExtra("Mood", 0);
             int energy = data.getIntExtra("Energy", 0);
             String notes = data.getStringExtra("Notes");
 
-            DailyLog dailyLog = new DailyLog(date, title, mood, energy, notes);
+            DailyLog dailyLog = new DailyLog(date, mood, energy, notes);
             mDailyLogViewModel.insert(dailyLog);
 
-        } else {
+        } else if (resultCode == RESULT_CANCELED && data.getStringExtra("Message").equals("Empty")){
             Toast.makeText(
                     getApplicationContext(),
                     R.string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         }
+        /*else if (resultCode == RESULT_CANCELED && data.getStringExtra("Message").equals("Format")){
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.wrong_date_format,
+                    Toast.LENGTH_LONG).show();
+        }*/
     }
 }

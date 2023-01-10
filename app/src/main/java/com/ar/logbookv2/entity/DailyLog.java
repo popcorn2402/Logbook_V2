@@ -15,9 +15,6 @@ public class DailyLog {
     @ColumnInfo(name = "date")
     private LocalDate date;
 
-    @ColumnInfo(name="title")
-    private String title;
-
     @ColumnInfo(name = "mood")
     private int mood;
 
@@ -27,9 +24,8 @@ public class DailyLog {
     @ColumnInfo(name = "notes")
     private String notes;
 
-    public DailyLog(@NonNull LocalDate date, String title, int mood, int energy, String notes) {
+    public DailyLog(@NonNull LocalDate date, int mood, int energy, String notes) {
         this.date = date;
-        this.title = title;
         this.mood = mood;
         this.energy = energy;
         this.notes = notes;
@@ -58,14 +54,6 @@ public class DailyLog {
 
     public void setEnergy(int energy) {
         this.energy = energy;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getNotes() {

@@ -23,7 +23,7 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
     @Override
     public void onBindViewHolder(@NonNull DailyLogViewHolder holder, int position) {
         DailyLog current = getItem(position);
-        holder.bind(current.getTitle(), current.getDate());
+        holder.bind(current.getDate(), current.getMood(), current.getEnergy());
     }
 
     static class DailyLogDiff extends DiffUtil.ItemCallback<DailyLog>{
