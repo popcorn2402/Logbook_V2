@@ -14,7 +14,7 @@ import java.util.List;
 public class DailyLogViewModel extends AndroidViewModel {
 
     private DailyLogRepository mRepository;
-    private LiveData<List<DailyLog>> mAllDailyLog;
+    private final LiveData<List<DailyLog>> mAllDailyLog;
 
     public DailyLogViewModel(@NonNull Application application) {
         super(application);
@@ -23,7 +23,7 @@ public class DailyLogViewModel extends AndroidViewModel {
         mAllDailyLog = mRepository.getAllDailyLog();
     }
 
-    LiveData<List<DailyLog>> getAllDailyLog(){
+    public LiveData<List<DailyLog>> getAllDailyLog(){
         return mAllDailyLog;
     }
 

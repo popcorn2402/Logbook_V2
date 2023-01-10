@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Logbook V2</string>
+    <string name="add_daily_log">add daily log</string>
+    <string name="hint_dailylog">Daily Log...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Daily Log not saved because it is empty.</string>
 </resources>
