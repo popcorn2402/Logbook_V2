@@ -12,14 +12,56 @@
         style="@style/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.8"
         android:background="@color/white"
-        android:paddingLeft="@dimen/big_padding"
-        android:text="Daily Log"
-        android:inputType="text"
+        android:text="@string/daily_log"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/daily_log_title"
+        app:layout_constraintTop_toTopOf="@+id/recyclerview"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            style="@style/daily_log_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="@color/white"
+            android:inputType="date"
+            android:paddingLeft="@dimen/big_padding"
+            android:text="Date" />
+
+        <TextView
+            style="@style/daily_log_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:inputType="number"
+            android:text="Mood"
+            android:textAlignment="center" />
+
+        <TextView
+            style="@style/daily_log_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:inputType="number"
+            android:text="Energy"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -30,7 +72,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daily_log_title"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/recyclerview_item" />
 
