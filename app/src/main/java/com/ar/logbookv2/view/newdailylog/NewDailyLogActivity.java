@@ -1,4 +1,4 @@
-package com.ar.logbookv2.view;
+package com.ar.logbookv2.view.newdailylog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.TypeConverters;
@@ -48,9 +48,12 @@ public class NewDailyLogActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
+
             if ( TextUtils.isEmpty(mEditDateView.getText())) {
                 replyIntent.putExtra("Message", "Empty");
                 setResult(RESULT_CANCELED, replyIntent);
+
+                finish();
             } else {
 
                 //LocalDate
@@ -83,8 +86,11 @@ public class NewDailyLogActivity extends AppCompatActivity {
                 replyIntent.putExtra("Notes", notes);
 
                 setResult(RESULT_OK, replyIntent);
+
+                finish();
             }
-            finish();
+
         });
+
     }
 }

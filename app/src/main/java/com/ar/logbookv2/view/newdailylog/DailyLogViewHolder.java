@@ -1,4 +1,4 @@
-package com.ar.logbookv2.view;
+package com.ar.logbookv2.view.newdailylog;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +32,7 @@ public class DailyLogViewHolder extends RecyclerView.ViewHolder {
         energyItemView.setText(Integer.toString(energy));
     }
 
-    static DailyLogViewHolder create(ViewGroup parent){
+    public static DailyLogViewHolder create(ViewGroup parent){
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
         return new DailyLogViewHolder(view);

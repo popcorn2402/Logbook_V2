@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
+import com.ar.logbookv2.view.newdailylog.DailyLogListAdapter;
+import com.ar.logbookv2.view.newdailylog.NewDailyLogActivity;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,31 +55,34 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_DAILY_LOG_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (data != null) {
+            if (requestCode == NEW_DAILY_LOG_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            LocalDate date = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                date = (LocalDate) data.getSerializableExtra("Date");
+                LocalDate date = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    date = (LocalDate) data.getSerializableExtra("Date");
+                }
+
+                int mood = data.getIntExtra("Mood", 0);
+                int energy = data.getIntExtra("Energy", 0);
+                String notes = data.getStringExtra("Notes");
+
+                DailyLog dailyLog = new DailyLog(date, mood, energy, notes);
+                mDailyLogViewModel.insert(dailyLog);
+
             }
-
-            int mood = data.getIntExtra("Mood", 0);
-            int energy = data.getIntExtra("Energy", 0);
-            String notes = data.getStringExtra("Notes");
-
-            DailyLog dailyLog = new DailyLog(date, mood, energy, notes);
-            mDailyLogViewModel.insert(dailyLog);
-
-        } else if (resultCode == RESULT_CANCELED && data.getStringExtra("Message").equals("Empty")){
+            else if (resultCode == RESULT_CANCELED && Objects.equals(data.getStringExtra("Message"), "Empty")){
             Toast.makeText(
                     getApplicationContext(),
                     R.string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
+            }
+            else if (resultCode == RESULT_CANCELED && Objects.equals(data.getStringExtra("Message"), "Format")){
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.wrong_date_format,
+                        Toast.LENGTH_LONG).show();
+            }
         }
-        /*else if (resultCode == RESULT_CANCELED && data.getStringExtra("Message").equals("Format")){
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.wrong_date_format,
-                    Toast.LENGTH_LONG).show();
-        }*/
     }
 }

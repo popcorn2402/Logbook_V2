@@ -1,4 +1,4 @@
-package com.ar.logbookv2.view;
+package com.ar.logbookv2.view.newdailylog;
 
 import android.view.ViewGroup;
 
@@ -10,7 +10,7 @@ import com.ar.logbookv2.entity.DailyLog;
 
 public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolder> {
 
-    protected DailyLogListAdapter(@NonNull DiffUtil.ItemCallback<DailyLog> diffCallback) {
+    public DailyLogListAdapter(@NonNull DiffUtil.ItemCallback<DailyLog> diffCallback) {
         super(diffCallback);
     }
 
@@ -26,7 +26,7 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
         holder.bind(current.getDate(), current.getMood(), current.getEnergy());
     }
 
-    static class DailyLogDiff extends DiffUtil.ItemCallback<DailyLog>{
+    public static class DailyLogDiff extends DiffUtil.ItemCallback<DailyLog>{
 
         @Override
         public boolean areItemsTheSame(@NonNull DailyLog oldItem, @NonNull DailyLog newItem) {
