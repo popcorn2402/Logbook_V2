@@ -8,21 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
 import com.ar.logbookv2.view.recyclerview.DailyLogListAdapter;
+import com.ar.logbookv2.view.recyclerview.OnRecyclerViewItemClicked;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnRecyclerViewItemClicked {
 
     private DailyLogViewModel mDailyLogViewModel;
     public static final int NEW_DAILY_LOG_ACTIVITY_REQUEST_CODE = 1;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final DailyLogListAdapter adapter = new DailyLogListAdapter(new DailyLogListAdapter.DailyLogDiff());
+        final DailyLogListAdapter adapter = new DailyLogListAdapter(new DailyLogListAdapter.DailyLogDiff(), this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -96,4 +95,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void onShortClick(int position){
+        Intent intent = new Intent(MainActivity.this, DailyLogViewPager.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLongClick(int position, LocalDate date) {
+        mDailyLogViewModel.deleteByDate(date);
+    }
 }

@@ -6,30 +6,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.logbookv2.entity.DailyLog;
+import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 
 public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolder> {
+    private final OnRecyclerViewItemClicked listener;
+    private DailyLogViewModel mDailyLogViewModel;
 
-    OnRecyclerViewItemClicked listener;
-
-    public DailyLogListAdapter(@NonNull DiffUtil.ItemCallback<DailyLog> diffCallback) {
+    public DailyLogListAdapter(@NonNull DiffUtil.ItemCallback<DailyLog> diffCallback, OnRecyclerViewItemClicked onRecyclerViewItemClicked) {
         super(diffCallback);
+
+        this.listener = onRecyclerViewItemClicked;
     }
 
     @NonNull
     @Override
     public DailyLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return DailyLogViewHolder.create(parent);
-    }
-
-    /**
-     * Custom created method for Setting the item click listener for the items and items with in items
-     * @param listener OnRecyclerViewItemClickListener
-     */
-    public void setOnItemClickListener(OnRecyclerViewItemClicked listener)
-    {
-        this.listener = listener;
+        return DailyLogViewHolder.create(parent, listener);
     }
 
     @Override
@@ -39,24 +34,18 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
 
         int pos = position;
 
-        holder.dateItemView.setOnClickListener(new View.OnClickListener()
-        {
+        holder.dateItemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                OnRecyclerViewItemClicked.onRecyclerViewItemClicked(pos, 1, v.getContext());
-            }
-        });
-
-        holder.dateItemView.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View v)
-            {
-                OnRecyclerViewItemClicked.onRecyclerViewItemClicked(pos, 2, v.getContext());
+            public boolean onLongClick(View view) {
+                if(listener != null)
+                    if(pos != RecyclerView.NO_POSITION) {
+                        listener.onLongClick(pos, current.getDate());
+                        return true;
+                    }
                 return false;
             }
         });
+
     }
 
     public static class DailyLogDiff extends DiffUtil.ItemCallback<DailyLog>{

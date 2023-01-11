@@ -1,7 +1,7 @@
-/*
 package com.ar.logbookv2.view;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,13 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
+import com.ar.logbookv2.model.repository.DailyLogRepository;
+import com.ar.logbookv2.view.recyclerview.DailyLogViewHolder;
+import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 
+import org.w3c.dom.Text;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.ViewHolder> {
 
     private LiveData<List<DailyLog>> list;
     private Context ctx;
+
+    private DailyLogViewModel model;
 
     // Constructor of our ViewPager2Adapter class
     ViewPager2Adapter(Context ctx) {
@@ -29,7 +37,7 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(R.layout.images_holder, parent, false);
+        View view = LayoutInflater.from(ctx).inflate(R.layout.content_holder, parent, false);
         return new ViewHolder(view);
     }
 
@@ -37,23 +45,25 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // This will set the images in imageview
-        holder.images.setImageResource(images[position]);
+
+
     }
 
-    // This Method returns the size of the Array
     @Override
     public int getItemCount() {
-        return images.length;
+        return 0;
     }
 
-    // The ViewHolder class holds the view
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView images;
+        private final TextView textItemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            images = itemView.findViewById(R.id.images);
+            textItemView = itemView.findViewById(R.id.content);
+        }
+
+        public void bind (String text){
+            textItemView.setText(text.toString());
         }
     }
 }
-*/

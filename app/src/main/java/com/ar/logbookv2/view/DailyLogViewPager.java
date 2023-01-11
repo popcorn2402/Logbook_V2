@@ -1,4 +1,3 @@
-/*
 package com.ar.logbookv2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +15,7 @@ public class DailyLogViewPager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_log_view_pager);
 
-        viewPager2 = findViewById(R.id.viewpager);
+        /*viewPager2 = findViewById(R.id.viewpager);
         ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(this);
 
         viewPager2.setAdapter(viewPager2Adapter);
@@ -41,7 +40,6 @@ public class DailyLogViewPager extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
             }
-        });
+        });*/
     }
 }
-*/
