@@ -1,25 +1,25 @@
 package com.ar.logbookv2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
-import com.ar.logbookv2.view.newdailylog.DailyLogListAdapter;
-import com.ar.logbookv2.view.newdailylog.NewDailyLogActivity;
+import com.ar.logbookv2.view.recyclerview.DailyLogListAdapter;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         final DailyLogListAdapter adapter = new DailyLogListAdapter(new DailyLogListAdapter.DailyLogDiff());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mDailyLogViewModel = new ViewModelProvider(this).get(DailyLogViewModel.class);
         mDailyLogViewModel.getAllDailyLog().observe(this, dailyLogs -> {
@@ -93,4 +95,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
