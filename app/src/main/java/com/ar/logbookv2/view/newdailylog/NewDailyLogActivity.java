@@ -1,5 +1,6 @@
 package com.ar.logbookv2.view.newdailylog;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.TypeConverters;
 
@@ -20,6 +21,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -35,6 +37,8 @@ public class NewDailyLogActivity extends AppCompatActivity {
     private EditText mEditEnergyView;
     private EditText mEditNotesView;
 
+    private boolean format = true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,11 @@ public class NewDailyLogActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
 
-            if ( TextUtils.isEmpty(mEditDateView.getText())) {
+            if (TextUtils.isEmpty(mEditDateView.getText()) ||
+                    TextUtils.isEmpty(mEditMoodView.getText()) ||
+                    TextUtils.isEmpty(mEditEnergyView.getText()) ||
+                    TextUtils.isEmpty(mEditNotesView.getText())
+            ) {
                 replyIntent.putExtra("Message", "Empty");
                 setResult(RESULT_CANCELED, replyIntent);
 
@@ -62,35 +70,58 @@ public class NewDailyLogActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 }
+
                 String local_date = mEditDateView.getText().toString();
 
                 //convert String to LocalDate
                 LocalDate date = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    date = LocalDate.parse(local_date, formatter);
+
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        date = LocalDate.parse(local_date, formatter);
+                    }
+                }
+                catch (Exception e){
+                    replyIntent.putExtra("Message", "Format");
+                    setResult(RESULT_CANCELED, replyIntent);
+
+                    format = false;
                 }
 
+                if(format){
+                    int mood = Integer.parseInt(mEditMoodView.getText().toString());
+                    int energy = Integer.parseInt(mEditEnergyView.getText().toString());
+                    String notes = mEditNotesView.getText().toString();
 
-                int mood = Integer.parseInt(mEditMoodView.getText().toString());
-                int energy = Integer.parseInt(mEditEnergyView.getText().toString());
-                String notes = mEditNotesView.getText().toString();
+                    //Intent
 
-                //Intent
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        replyIntent.putExtra("Date", date);
+                    }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    replyIntent.putExtra("Date", date);
+                    replyIntent.putExtra("Mood", mood);
+                    replyIntent.putExtra("Energy", energy);
+                    replyIntent.putExtra("Notes", notes);
+
+                    setResult(RESULT_OK, replyIntent);
+
+                    finish();
                 }
-
-                replyIntent.putExtra("Mood", mood);
-                replyIntent.putExtra("Energy", energy);
-                replyIntent.putExtra("Notes", notes);
-
-                setResult(RESULT_OK, replyIntent);
-
                 finish();
             }
-
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static boolean isDateValid(int year, int month, int day) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                LocalDate.of(year, month, day);
+            }
+        } catch (DateTimeException e) {
+            return false;
+        }
+        return true;
     }
 }

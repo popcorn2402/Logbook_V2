@@ -1,6 +1,7 @@
 package com.ar.logbookv2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,16 +70,21 @@ public class MainActivity extends AppCompatActivity {
                 int energy = data.getIntExtra("Energy", 0);
                 String notes = data.getStringExtra("Notes");
 
-                DailyLog dailyLog = new DailyLog(date, mood, energy, notes);
-                mDailyLogViewModel.insert(dailyLog);
+                try {
+                    DailyLog dailyLog = new DailyLog(date, mood, energy, notes);
+                    mDailyLogViewModel.insert(dailyLog);
+                }
+                catch (Exception e){
+                    Toast.makeText(this, R.string.date_already_saved, Toast.LENGTH_SHORT).show();
+                }
 
             }
             else if (resultCode == RESULT_CANCELED && Objects.equals(data.getStringExtra("Message"), "Empty")){
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.empty_not_saved,
+                        Toast.LENGTH_LONG).show();
+                }
             else if (resultCode == RESULT_CANCELED && Objects.equals(data.getStringExtra("Message"), "Format")){
                 Toast.makeText(
                         getApplicationContext(),

@@ -5,12 +5,19 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_size</item>
     </style>
 
-    <style name="daily_log_title">
+    <style name="daily_log_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/white</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+    </style>
+
+    <style name="title">
+        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+        <item name="android:padding">@dimen/big_padding</item>
     </style>
 
     <color name="colorAccent">#CDDC39</color>

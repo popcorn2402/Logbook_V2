@@ -3,22 +3,23 @@
     android:orientation="horizontal"
     android:background="@drawable/custom_border"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp">
 
     <TextView
         android:id="@+id/date_tv"
-        style="@style/daily_log_title"
+        style="@style/daily_log_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:background="@color/white"
-        android:textAlignment="center"
+        android:paddingLeft="@dimen/big_padding"
         android:text="Date"
         android:inputType="date"/>
 
     <TextView
         android:id="@+id/mood_tv"
-        style="@style/daily_log_title"
+        style="@style/daily_log_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -29,7 +30,7 @@
 
     <TextView
         android:id="@+id/energy_tv"
-        style="@style/daily_log_title"
+        style="@style/daily_log_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

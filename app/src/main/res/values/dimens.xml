@@ -3,4 +3,6 @@
     <dimen name="small_padding">8dp</dimen>
     <dimen name="big_padding">16dp</dimen>
     <dimen name="min_height">10dp</dimen>
+    <dimen name="text_size">18dp</dimen>
+    <dimen name="title_size">25dp</dimen>
 </resources>
