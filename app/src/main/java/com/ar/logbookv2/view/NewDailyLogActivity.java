@@ -40,6 +40,14 @@ public class NewDailyLogActivity extends AppCompatActivity {
         mEditEnergyView = findViewById(R.id.energy_ed);
         mEditNotesView = findViewById(R.id.notes_ed);
 
+        LocalDate today = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            today = LocalDate.now();
+        }
+
+        assert today != null;
+        mEditDateView.setText(today.toString());
+
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
@@ -71,15 +79,14 @@ public class NewDailyLogActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         date = LocalDate.parse(local_date, formatter);
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     replyIntent.putExtra("Message", "Format");
                     setResult(RESULT_CANCELED, replyIntent);
 
                     format = false;
                 }
 
-                if(format){
+                if (format) {
                     int mood = Integer.parseInt(mEditMoodView.getText().toString());
                     int energy = Integer.parseInt(mEditEnergyView.getText().toString());
                     String notes = mEditNotesView.getText().toString();

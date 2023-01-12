@@ -27,19 +27,6 @@ public class DailyLogViewHolder extends RecyclerView.ViewHolder {
         moodItemView = itemView.findViewById(R.id.mood_tv);
         energyItemView = itemView.findViewById(R.id.energy_tv);
         parentView = itemView.findViewById(R.id.clickable_layout);
-
-        dateItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(listener != null){
-                    int pos = getAdapterPosition();
-
-                    if(pos != RecyclerView.NO_POSITION){
-                        listener.onShortClick(pos);
-                    }
-                }
-            }
-        });
     }
 
     public void bind (LocalDate date, int mood, int energy){

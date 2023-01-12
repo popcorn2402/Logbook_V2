@@ -34,6 +34,16 @@ public class DailyLogListAdapter extends ListAdapter<DailyLog, DailyLogViewHolde
 
         int pos = position;
 
+        holder.dateItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null)
+                    if(pos != RecyclerView.NO_POSITION){
+                        listener.onShortClick(pos, current.getDate(), current.getEnergy(), current.getMood(), current.getNotes());
+                    }
+            }
+        });
+
         holder.dateItemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {

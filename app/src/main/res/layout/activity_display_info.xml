@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".view.DisplayInfo">
 
     <TextView
-        android:id="@+id/daily_log_title"
         style="@style/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="@string/today_s_mood" />
+        android:text="@string/info_day"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,17 +30,14 @@
             android:layout_weight="1"
             android:text="Date" />
 
-        <EditText
-            android:id="@+id/date_ed"
+        <TextView
+            android:id="@+id/display_daily_log_date"
+            style="@style/info_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/min_height"
-            android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_date"
+            android:layout_weight="0.7"
             android:inputType="date"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp"
-            android:layout_weight="0.7"/>
+            android:text="0000-00-00" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,21 +49,17 @@
             style="@style/daily_log_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="Mood" />
 
-        <EditText
-            android:id="@+id/mood_ed"
+        <TextView
+            style="@style/info_item"
+            android:id="@+id/display_daily_log_mood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/min_height"
-            android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_mood"
+            android:layout_weight="0.7"
             android:inputType="number"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp"
-            android:layout_weight="0.7"/>
+            android:text="0" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,24 +74,20 @@
             android:layout_weight="1"
             android:text="Energy" />
 
-        <EditText
-            android:id="@+id/energy_ed"
+        <TextView
+            style="@style/info_item"
+            android:id="@+id/display_daily_log_energy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/min_height"
-            android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_energy"
+            android:layout_weight="0.7"
             android:inputType="number"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp"
-            android:layout_weight="0.7"/>
+            android:text="0" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             style="@style/daily_log_info"
@@ -111,26 +106,17 @@
             android:layout_marginTop="9dp"
             android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/notes_ed"
+            <TextView
+                style="@android:style/TextAppearance.Large"
+                android:textSize="19dp"
+                android:id="@+id/display_daily_log_notes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_notes"
+                android:layout_height="match_parent"
                 android:inputType="textMultiLine"
-                android:textSize="18sp" />
+                android:layout_margin="5dp"
+                android:text="Lorem Ipsum" />
+
         </LinearLayout>
     </LinearLayout>
-
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="250dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/big_padding"
-            android:background="@color/colorPrimary"
-            android:text="@string/button_save"
-            android:textColor="@color/buttonLabel"/>
 
 </LinearLayout>

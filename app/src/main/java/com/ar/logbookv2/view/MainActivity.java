@@ -7,17 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
+import com.ar.logbookv2.view.essaiviewpager.DailyLogViewPager;
 import com.ar.logbookv2.view.recyclerview.DailyLogListAdapter;
 import com.ar.logbookv2.view.recyclerview.OnRecyclerViewItemClicked;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -95,8 +96,15 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerViewIte
         }
     }
 
-    public void onShortClick(int position){
-        Intent intent = new Intent(MainActivity.this, DailyLogViewPager.class);
+    public void onShortClick(int position, LocalDate date, int mood, int energy, String notes){
+        Intent intent = new Intent(MainActivity.this, DisplayInfo.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.putExtra("Date", date);
+        }
+        intent.putExtra("Mood", mood);
+        intent.putExtra("Energy", energy);
+        intent.putExtra("Notes", notes);
         startActivity(intent);
     }
 

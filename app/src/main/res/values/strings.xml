@@ -12,4 +12,5 @@
     <string name="hint_notes">Write about your day…</string>
     <string name="today_s_mood">Today\'s Mood</string>
     <string name="daily_log">Daily Log</string>
+    <string name="info_day">About this day</string>
 </resources>

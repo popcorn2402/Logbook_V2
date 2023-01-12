@@ -1,4 +1,4 @@
-package com.ar.logbookv2.view;
+package com.ar.logbookv2.view.essaiviewpager;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,25 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ar.logbookv2.R;
 import com.ar.logbookv2.entity.DailyLog;
-import com.ar.logbookv2.model.repository.DailyLogRepository;
-import com.ar.logbookv2.view.recyclerview.DailyLogViewHolder;
 import com.ar.logbookv2.viewmodel.DailyLogViewModel;
 
-import org.w3c.dom.Text;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.ViewHolder> {
 
     private LiveData<List<DailyLog>> list;
-    private Context ctx;
+    private final Context ctx;
+    private int moodItem;
 
     private DailyLogViewModel model;
 
-    // Constructor of our ViewPager2Adapter class
-    ViewPager2Adapter(Context ctx) {
+    public ViewPager2Adapter(Context ctx, int mood) {
+        //super(diffCallback);
         this.ctx = ctx;
+        this.moodItem = mood;
     }
 
     // This method returns our layout
@@ -45,7 +42,8 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // This will set the images in imageview
-
+        //DailyLog current;
+        holder.bind(moodItem);
 
     }
 
@@ -55,15 +53,15 @@ public class ViewPager2Adapter extends RecyclerView.Adapter<ViewPager2Adapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textItemView;
+        private final TextView moodItemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textItemView = itemView.findViewById(R.id.content);
+            moodItemView = itemView.findViewById(R.id.content);
         }
 
-        public void bind (String text){
-            textItemView.setText(text.toString());
+        public void bind (int mood){
+            moodItemView.setText(Integer.toString(mood));
         }
     }
 }
